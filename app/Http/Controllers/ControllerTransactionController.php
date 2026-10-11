@@ -1,9 +1,6 @@
 <?php
 
-/**
- * Controller transaksi dalam pola MVC.
- * Sesuaikan nama method model dan path view dengan struktur proyek.
- */
+
 class ControllerTransactionController
 {
     private $model;
@@ -13,20 +10,18 @@ class ControllerTransactionController
         $this->model = $model;
     }
 
-    // Menampilkan semua transaksi.
+
     public function index()
     {
         $transactions = $this->model->getAllTransactions();
         include 'views/transaction/index.php';
     }
 
-    // Menampilkan halaman tambah transaksi.
     public function create()
     {
         include 'views/transaction/create.php';
     }
 
-    // Memproses penyimpanan transaksi baru.
     public function store()
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -58,7 +53,6 @@ class ControllerTransactionController
         exit;
     }
 
-    // Menampilkan detail transaksi untuk diedit.
     public function edit($id = null)
     {
         $id = $id ?? ($_GET['id'] ?? null);
@@ -79,7 +73,6 @@ class ControllerTransactionController
         include 'views/transaction/edit.php';
     }
 
-    // Memproses perubahan transaksi.
     public function update($id = null)
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -119,7 +112,6 @@ class ControllerTransactionController
         exit;
     }
 
-    // Menghapus transaksi.
     public function delete($id = null)
     {
         $id = $id ?? ($_POST['id'] ?? $_GET['id'] ?? null);
