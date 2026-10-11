@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -14,10 +15,25 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --primary: #155E75;
+            --primary-dark: #164E63;
+            --primary-light: #DDF3F7;
+            --background: #F4F8FA;
+            --surface: #FFFFFF;
+            --text: #20343D;
+            --text-muted: #71818A;
+            --border: #DCE7EB;
+            --income: #16805D;
+            --income-light: #E5F5ED;
+            --expense: #C24141;
+            --expense-light: #FCEAEA;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            background: #f7f9f7;
-            color: #202820;
+            background: var(--background);
+            color: var(--text);
         }
 
         .app {
@@ -25,68 +41,99 @@
             min-height: 100vh;
         }
 
+        /* Sidebar */
         .sidebar {
             width: 245px;
-            background: #fff;
-            border-right: 1px solid #e8ede8;
-            padding: 28px 18px;
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            padding: 28px 20px;
             flex-shrink: 0;
         }
 
         .brand {
             display: flex;
             align-items: center;
+            justify-content: flex-start;
             gap: 10px;
-            margin: 0 8px 42px;
-            font-size: 21px;
+            width: 100%;
+            margin: 0 0 34px;
+            font-size: 22px;
+            line-height: 1.2;
             font-weight: 700;
+            color: var(--text);
+            white-space: nowrap;
         }
 
         .brand-icon {
-            background: #18794e;
-            color: white;
+            width: 40px;
+            height: 40px;
+            min-width: 40px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary);
+            color: #FFFFFF;
             border-radius: 10px;
-            padding: 9px;
+            font-size: 22px;
+            line-height: 1;
+            font-weight: 700;
         }
 
         .menu-label {
-            color: #929b92;
+            display: block;
+            margin: 0 0 12px 4px;
+            padding: 0;
+            color: var(--text-muted);
             font-size: 11px;
+            line-height: 1.6;
             font-weight: 700;
             letter-spacing: 1px;
-            margin: 25px 10px 12px;
+            overflow-wrap: break-word;
+        }
+
+        .sidebar nav {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
         }
 
         .nav-link {
             display: flex;
             align-items: center;
-            gap: 12px;
+            min-height: 44px;
             text-decoration: none;
-            color: #667066;
-            padding: 13px 12px;
-            margin-bottom: 6px;
+            color: #526873;
+            padding: 11px 12px;
+            margin: 0;
             border-radius: 9px;
             font-size: 14px;
-            transition: .2s;
+            transition: background 0.2s, color 0.2s;
         }
 
         .nav-link:hover,
         .nav-link.active {
-            background: #eaf5ee;
-            color: #18794e;
+            background: var(--primary-light);
+            color: var(--primary);
             font-weight: 600;
         }
 
         .sidebar-note {
-            margin-top: 50px;
+            margin-top: 42px;
             padding: 16px;
-            background: #f1f8f3;
+            background: var(--background);
             border-radius: 12px;
             font-size: 12px;
             line-height: 1.7;
-            color: #526458;
+            color: #526873;
         }
 
+        .sidebar-note strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        /* Main content */
         .main {
             flex: 1;
             min-width: 0;
@@ -102,9 +149,10 @@
         }
 
         .eyebrow {
-            color: #7d887e;
-            font-size: 13px;
+            color: var(--text-muted);
+            font-size: 11px;
             margin-bottom: 8px;
+            letter-spacing: 0.3px;
         }
 
         h1 {
@@ -113,7 +161,7 @@
         }
 
         .date {
-            color: #727d73;
+            color: var(--text-muted);
             font-size: 13px;
             margin-top: 8px;
         }
@@ -122,9 +170,9 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            background: white;
+            background: var(--surface);
             padding: 9px 13px;
-            border: 1px solid #e8ede8;
+            border: 1px solid var(--border);
             border-radius: 12px;
             font-size: 13px;
         }
@@ -135,14 +183,15 @@
             display: grid;
             place-items: center;
             border-radius: 50%;
-            background: #dcefe2;
-            color: #18794e;
+            background: var(--primary-light);
+            color: var(--primary);
             font-weight: 700;
         }
 
+        /* Balance */
         .balance-card {
-            background: linear-gradient(120deg, #176b46, #269461);
-            color: white;
+            background: linear-gradient(120deg, var(--primary-dark), #0E7490);
+            color: #FFFFFF;
             border-radius: 18px;
             padding: 28px;
             display: flex;
@@ -150,12 +199,12 @@
             align-items: center;
             gap: 20px;
             margin-bottom: 24px;
-            box-shadow: 0 10px 25px #176b4618;
+            box-shadow: 0 10px 25px #155E7518;
         }
 
         .balance-label {
             font-size: 13px;
-            color: #d9eee1;
+            color: #D8EDF2;
             margin-bottom: 13px;
         }
 
@@ -163,10 +212,11 @@
             font-size: clamp(27px, 3vw, 36px);
             font-weight: 700;
             letter-spacing: -1px;
+            overflow-wrap: anywhere;
         }
 
         .balance-caption {
-            color: #d9eee1;
+            color: #D8EDF2;
             font-size: 12px;
             margin-top: 12px;
         }
@@ -175,12 +225,14 @@
             width: 58px;
             height: 58px;
             border-radius: 16px;
-            background: #ffffff20;
+            background: #FFFFFF20;
             display: grid;
             place-items: center;
             font-size: 27px;
+            flex-shrink: 0;
         }
 
+        /* Summary cards */
         .section-title {
             font-size: 17px;
             font-weight: 700;
@@ -195,10 +247,11 @@
         }
 
         .summary-card {
-            background: white;
-            border: 1px solid #e9eee9;
+            background: var(--surface);
+            border: 1px solid var(--border);
             border-radius: 15px;
             padding: 21px;
+            min-width: 0;
         }
 
         .summary-top {
@@ -210,7 +263,7 @@
         }
 
         .summary-label {
-            color: #788278;
+            color: var(--text-muted);
             font-size: 13px;
         }
 
@@ -221,18 +274,22 @@
             place-items: center;
             border-radius: 11px;
             font-size: 19px;
+            flex-shrink: 0;
         }
 
         .income-icon {
-            background: #e7f6ec;
+            background: var(--income-light);
+            color: var(--income);
         }
 
         .expense-icon {
-            background: #fff0e8;
+            background: var(--expense-light);
+            color: var(--expense);
         }
 
         .saving-icon {
-            background: #edf0ff;
+            background: var(--primary-light);
+            color: var(--primary);
         }
 
         .summary-amount {
@@ -243,10 +300,11 @@
 
         .summary-caption {
             margin-top: 9px;
-            color: #899289;
+            color: #8999A0;
             font-size: 12px;
         }
 
+        /* Dashboard panels */
         .content-grid {
             display: grid;
             grid-template-columns: minmax(0, 1.5fr) minmax(230px, 1fr);
@@ -255,8 +313,8 @@
         }
 
         .panel {
-            background: white;
-            border: 1px solid #e9eee9;
+            background: var(--surface);
+            border: 1px solid var(--border);
             border-radius: 15px;
             padding: 23px;
             min-width: 0;
@@ -275,12 +333,18 @@
         }
 
         .text-link {
-            color: #18794e;
+            color: var(--primary);
             text-decoration: none;
             font-size: 12px;
             font-weight: 600;
+            white-space: nowrap;
         }
 
+        .text-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Simple cash flow chart */
         .chart {
             height: 190px;
             display: flex;
@@ -288,12 +352,12 @@
             justify-content: space-around;
             gap: 12px;
             padding: 15px 0 0;
-            border-bottom: 1px solid #edf0ed;
+            border-bottom: 1px solid var(--border);
             background: repeating-linear-gradient(
                 to bottom,
                 transparent 0,
                 transparent 46px,
-                #f0f3f0 47px,
+                #EDF3F5 47px,
                 transparent 48px
             );
         }
@@ -304,7 +368,6 @@
             align-items: end;
             gap: 5px;
             position: relative;
-            padding-bottom: 0;
         }
 
         .bar {
@@ -313,25 +376,26 @@
         }
 
         .bar.income {
-            background: #279966;
+            background: #16805D;
         }
 
         .bar.expense {
-            background: #f0b58e;
+            background: #E7A18A;
         }
 
         .chart-labels {
             display: flex;
             justify-content: space-around;
-            color: #8a948a;
+            color: var(--text-muted);
             font-size: 11px;
             margin-top: 12px;
         }
 
         .legend {
             display: flex;
+            flex-wrap: wrap;
             gap: 15px;
-            color: #788278;
+            color: var(--text-muted);
             font-size: 11px;
             margin-top: 20px;
         }
@@ -349,6 +413,7 @@
             display: inline-block;
         }
 
+        /* Recent transactions */
         .transaction-list {
             display: flex;
             flex-direction: column;
@@ -359,7 +424,7 @@
             align-items: center;
             gap: 11px;
             padding: 14px 0;
-            border-bottom: 1px solid #f0f2f0;
+            border-bottom: 1px solid #EDF3F5;
         }
 
         .transaction:last-child {
@@ -372,7 +437,7 @@
             border-radius: 12px;
             display: grid;
             place-items: center;
-            background: #f0f5f0;
+            background: var(--background);
             font-size: 18px;
             flex-shrink: 0;
         }
@@ -389,7 +454,7 @@
         }
 
         .transaction-date {
-            color: #929a92;
+            color: #8999A0;
             font-size: 10px;
         }
 
@@ -401,20 +466,21 @@
         }
 
         .positive {
-            color: #218653;
+            color: var(--income);
         }
 
         .negative {
-            color: #db7850;
+            color: var(--expense);
         }
 
         .demo-note {
             font-size: 11px;
-            color: #879087;
+            color: var(--text-muted);
             margin-top: 22px;
             text-align: center;
         }
 
+        /* Tablet */
         @media (max-width: 1050px) {
             .sidebar {
                 width: 205px;
@@ -437,6 +503,7 @@
             }
         }
 
+        /* Mobile */
         @media (max-width: 700px) {
             .app {
                 display: block;
@@ -444,13 +511,13 @@
 
             .sidebar {
                 width: 100%;
-                padding: 15px;
+                padding: 15px 20px;
                 border-right: none;
-                border-bottom: 1px solid #e8ede8;
+                border-bottom: 1px solid var(--border);
             }
 
             .brand {
-                margin: 0 5px 15px;
+                margin: 0 0 15px;
             }
 
             .menu-label,
@@ -460,11 +527,13 @@
 
             .sidebar nav {
                 display: flex;
+                flex-direction: row;
                 gap: 5px;
                 overflow-x: auto;
             }
 
             .nav-link {
+                min-height: 40px;
                 white-space: nowrap;
                 padding: 10px;
                 margin: 0;
@@ -510,16 +579,22 @@
 
     <aside class="sidebar">
         <div class="brand">
-            <span class="brand-icon">₿</span>
+            <span class="brand-icon">F</span>
             <span>FinTrack</span>
         </div>
 
         <p class="menu-label">MENU UTAMA</p>
 
-        <nav>
-            <a href="{{ url('/') }}" class="nav-link active">▦ Dashboard</a>
-            <a href="{{ url('/transactions') }}" class="nav-link">⇄ Transactions</a>
-            <a href="{{ url('/transactions/create') }}" class="nav-link">＋ Add Transaction</a>
+        <nav aria-label="Navigasi utama">
+            <a href="{{ url('/') }}" class="nav-link active" aria-current="page">
+                Dashboard
+            </a>
+            <a href="{{ url('/transactions') }}" class="nav-link">
+                Transactions
+            </a>
+            <a href="{{ url('/transactions/create') }}" class="nav-link">
+                Add Transaction
+            </a>
         </nav>
 
         <div class="sidebar-note">
@@ -626,8 +701,8 @@
                 </div>
 
                 <div class="legend">
-                    <span><i class="dot" style="background:#279966"></i>Pemasukan</span>
-                    <span><i class="dot" style="background:#f0b58e"></i>Pengeluaran</span>
+                    <span><i class="dot" style="background:#16805D"></i>Pemasukan</span>
+                    <span><i class="dot" style="background:#E7A18A"></i>Pengeluaran</span>
                 </div>
             </article>
 
@@ -650,7 +725,7 @@
                     <div class="transaction">
                         <div class="transaction-icon">🍜</div>
                         <div class="transaction-info">
-                            <p class="transaction-name">Makan & Minum</p>
+                            <p class="transaction-name">Makan &amp; Minum</p>
                             <p class="transaction-date">03 Okt 2026 · Pengeluaran</p>
                         </div>
                         <p class="transaction-amount negative">-Rp75.000</p>
