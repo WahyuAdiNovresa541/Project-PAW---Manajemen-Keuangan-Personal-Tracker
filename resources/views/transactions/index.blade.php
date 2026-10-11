@@ -1,21 +1,37 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transactions | Finance Tracker</title>
+    <title>Transactions | FinTrack</title>
 
     <style>
+        :root {
+            --primary: #155E75;
+            --primary-dark: #164E63;
+            --primary-light: #DDF3F7;
+            --background: #F4F8FA;
+            --surface: #FFFFFF;
+            --text: #20343D;
+            --text-muted: #71818A;
+            --border: #DCE7EB;
+            --income: #16805D;
+            --income-light: #E5F5ED;
+            --expense: #C24141;
+            --expense-light: #FCEAEA;
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            font-family: Arial, sans-serif;
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background: #f6f8f6;
-            color: #26352c;
+            background: var(--background);
+            color: var(--text);
         }
 
         .layout {
@@ -23,88 +39,137 @@
             min-height: 100vh;
         }
 
+        /* Sidebar */
         .sidebar {
-            width: 235px;
-            background: #fff;
-            padding: 30px 20px;
-            border-right: 1px solid #e6ebe6;
+            width: 245px;
             flex-shrink: 0;
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            padding: 28px 20px;
         }
 
         .brand {
-            font-size: 21px;
-            font-weight: bold;
-            color: #26734d;
-            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 10px;
+            width: 100%;
+            margin-bottom: 34px;
+            font-size: 22px;
+            line-height: 1.2;
+            font-weight: 700;
+            color: var(--text);
+            white-space: nowrap;
+        }
+
+        .brand-icon {
+            width: 40px;
+            height: 40px;
+            min-width: 40px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary);
+            color: #FFFFFF;
+            border-radius: 10px;
+            font-size: 22px;
+            line-height: 1;
+            font-weight: 700;
         }
 
         .nav-label {
+            display: block;
+            margin: 0 0 12px 4px;
+            padding: 0;
             font-size: 11px;
-            color: #929b94;
-            margin-bottom: 12px;
+            line-height: 1.6;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            overflow-wrap: break-word;
+        }
+
+        .nav {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
         }
 
         .nav a {
-            display: block;
-            padding: 13px 14px;
-            margin-bottom: 7px;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            min-height: 44px;
+            padding: 12px 14px;
             border-radius: 9px;
             text-decoration: none;
-            color: #68736b;
+            color: var(--text-muted);
             font-size: 14px;
+            line-height: 1.5;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .nav a:hover {
+            background: #F0F7F9;
+            color: var(--primary);
         }
 
         .nav a.active {
-            background: #e9f5ed;
-            color: #26734d;
-            font-weight: bold;
+            background: var(--primary-light);
+            color: var(--primary);
+            font-weight: 700;
         }
 
+        /* Main content */
         .main {
             flex: 1;
-            padding: 35px;
             min-width: 0;
+            padding: 35px;
         }
 
         .topbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 15px;
+            gap: 20px;
             margin-bottom: 30px;
         }
 
         h1 {
             font-size: 28px;
+            letter-spacing: -0.5px;
             margin-bottom: 8px;
         }
 
         .subtitle {
-            color: #858e87;
+            color: var(--text-muted);
             font-size: 14px;
+            line-height: 1.6;
         }
 
         .button {
-            display: inline-block;
-            background: #26734d;
-            color: white;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            background: var(--primary);
+            color: #FFFFFF;
             text-decoration: none;
             padding: 12px 17px;
             border-radius: 9px;
             font-size: 13px;
-            font-weight: bold;
+            font-weight: 700;
             border: none;
             cursor: pointer;
+            transition: background 0.2s;
         }
 
-        .panel {
-            background: white;
-            border: 1px solid #e7ebe7;
-            border-radius: 14px;
-            padding: 22px;
-            margin-bottom: 22px;
+        .button:hover {
+            background: var(--primary-dark);
         }
 
+        /* Summary cards */
         .summary {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -113,28 +178,46 @@
         }
 
         .summary-card {
-            background: white;
-            border: 1px solid #e7ebe7;
+            min-width: 0;
+            background: var(--surface);
+            border: 1px solid var(--border);
             border-radius: 14px;
             padding: 21px;
         }
 
         .summary-card p {
             font-size: 13px;
-            color: #858e87;
+            line-height: 1.5;
+            color: var(--text-muted);
             margin-bottom: 13px;
         }
 
         .summary-card h2 {
             font-size: 22px;
+            line-height: 1.4;
+            overflow-wrap: anywhere;
         }
 
         .income {
-            color: #238451;
+            color: var(--income);
         }
 
         .expense {
-            color: #d45e55;
+            color: var(--expense);
+        }
+
+        /* Panels and filters */
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 22px;
+            margin-bottom: 22px;
+        }
+
+        .panel-title {
+            font-size: 17px;
+            line-height: 1.5;
         }
 
         .filters {
@@ -144,13 +227,16 @@
             margin-top: 20px;
         }
 
-        input, select {
+        input,
+        select {
+            min-height: 42px;
             padding: 11px 13px;
-            border: 1px solid #dfe5df;
+            border: 1px solid var(--border);
             border-radius: 8px;
-            background: white;
-            color: #344239;
+            background: var(--surface);
+            color: var(--text);
             font-size: 13px;
+            outline: none;
         }
 
         input {
@@ -160,12 +246,21 @@
 
         select {
             min-width: 150px;
+            cursor: pointer;
         }
 
+        input:focus,
+        select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(21, 94, 117, 0.10);
+        }
+
+        /* Transaction table */
         .table-heading {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
             gap: 10px;
             margin-bottom: 20px;
         }
@@ -176,6 +271,7 @@
 
         .table-wrap {
             overflow-x: auto;
+            width: 100%;
         }
 
         table {
@@ -187,47 +283,53 @@
 
         th {
             font-size: 12px;
-            color: #929b94;
-            font-weight: normal;
+            color: var(--text-muted);
+            font-weight: 700;
             padding: 14px 12px;
-            border-bottom: 1px solid #edf0ed;
+            border-bottom: 1px solid #EDF2F4;
         }
 
         td {
             font-size: 13px;
             padding: 17px 12px;
-            border-bottom: 1px solid #f0f2f0;
+            border-bottom: 1px solid #F0F4F5;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
         }
 
         .category {
             display: inline-block;
-            background: #f0f3f0;
+            background: #F0F6F8;
             padding: 6px 10px;
             border-radius: 6px;
-            color: #637066;
+            color: #536A74;
             font-size: 12px;
         }
 
         .type {
             font-size: 12px;
-            font-weight: bold;
+            font-weight: 700;
         }
 
         .empty {
             text-align: center;
             padding: 30px;
-            color: #929b94;
+            color: var(--text-muted);
             display: none;
+            font-size: 14px;
         }
 
-        @media (max-width: 850px) {
+        /* Responsive layout */
+        @media (max-width: 1000px) {
             .sidebar {
-                width: 190px;
-                padding: 25px 13px;
+                width: 220px;
+                padding: 28px 16px;
             }
 
             .main {
-                padding: 24px 18px;
+                padding: 28px 22px;
             }
 
             .summary {
@@ -235,61 +337,118 @@
             }
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 650px) {
             .layout {
-                display: block;
+                flex-direction: column;
             }
 
             .sidebar {
                 width: 100%;
-                padding: 18px;
+                padding: 18px 20px;
                 border-right: none;
-                border-bottom: 1px solid #e6ebe6;
+                border-bottom: 1px solid var(--border);
             }
 
             .brand {
-                margin-bottom: 18px;
+                margin-bottom: 20px;
+                font-size: 21px;
+            }
+
+            .brand-icon {
+                width: 40px;
+                height: 40px;
             }
 
             .nav-label {
-                display: none;
+                margin-bottom: 10px;
             }
 
             .nav {
-                display: flex;
+                flex-direction: row;
                 flex-wrap: wrap;
-                gap: 5px;
+                gap: 6px;
             }
 
             .nav a {
-                margin: 0;
+                flex: 1 1 auto;
+                justify-content: center;
+                width: auto;
+                min-height: 40px;
                 padding: 10px;
+                text-align: center;
+                font-size: 13px;
             }
 
             .main {
-                padding: 22px 14px;
+                padding: 24px 16px;
             }
 
             .topbar {
                 align-items: flex-start;
                 flex-direction: column;
+                gap: 16px;
             }
 
             h1 {
-                font-size: 24px;
+                font-size: 25px;
+            }
+
+            .button {
+                width: 100%;
+            }
+
+            .summary {
+                gap: 12px;
+            }
+
+            .summary-card {
+                padding: 18px;
+            }
+
+            .summary-card h2 {
+                font-size: 21px;
+            }
+
+            .panel {
+                padding: 18px 14px;
+            }
+
+            .filters {
+                flex-direction: column;
+            }
+
+            input,
+            select {
+                width: 100%;
+                min-width: 0;
+            }
+
+            .table-heading {
+                align-items: flex-start;
+                flex-direction: column;
             }
         }
     </style>
 </head>
+
 <body>
 <div class="layout">
-    <aside class="sidebar">
-        <div class="brand">Finance Tracker</div>
 
-        <div class="nav-label">MAIN MENU</div>
-        <nav class="nav">
+    <aside class="sidebar">
+        <div class="brand">
+            <span class="brand-icon">F</span>
+            <span>FinTrack</span>
+        </div>
+
+        <p class="nav-label">MENU UTAMA</p>
+
+        <nav class="nav" aria-label="Navigasi utama">
             <a href="{{ url('/') }}">Dashboard</a>
-            <a href="{{ url('/transactions') }}" class="active">Transactions</a>
+            <a href="{{ url('/transactions') }}"
+               class="active"
+               aria-current="page">
+                Transactions
+            </a>
             <a href="{{ url('/transactions/create') }}">Add Transaction</a>
         </nav>
     </aside>
@@ -298,7 +457,9 @@
         <header class="topbar">
             <div>
                 <h1>Transactions</h1>
-                <p class="subtitle">Manage and review your income and expenses.</p>
+                <p class="subtitle">
+                    Manage and review your income and expenses.
+                </p>
             </div>
 
             <a class="button" href="{{ url('/transactions/create') }}">
@@ -324,17 +485,17 @@
         </section>
 
         <section class="panel">
-            <h2 style="font-size:17px;">Find a transaction</h2>
+            <h2 class="panel-title">Find a transaction</h2>
 
             <div class="filters">
                 <input
                     type="text"
                     id="search"
                     placeholder="Search transaction or category..."
-                    aria-label="Search transactions"
+                    aria-label="Cari transaksi"
                 >
 
-                <select id="type-filter" aria-label="Filter transaction type">
+                <select id="type-filter" aria-label="Filter jenis transaksi">
                     <option value="all">All types</option>
                     <option value="income">Income</option>
                     <option value="expense">Expense</option>
@@ -422,9 +583,12 @@
 <script>
     const searchInput = document.getElementById('search');
     const typeFilter = document.getElementById('type-filter');
-    const rows = Array.from(document.querySelectorAll('#transaction-list tr'));
+    const rows = Array.from(
+        document.querySelectorAll('#transaction-list tr')
+    );
     const emptyState = document.getElementById('empty-state');
     const resultCount = document.getElementById('result-count');
+    const totalCount = document.getElementById('total-count');
 
     function filterTransactions() {
         const query = searchInput.value.toLowerCase().trim();
@@ -432,11 +596,15 @@
         let visibleCount = 0;
 
         rows.forEach(function (row) {
-            const matchesSearch = row.textContent.toLowerCase().includes(query);
+            const matchesSearch = row.textContent
+                .toLowerCase()
+                .includes(query);
+
             const matchesType = selectedType === 'all'
                 || row.dataset.type === selectedType;
 
             const visible = matchesSearch && matchesType;
+
             row.style.display = visible ? '' : 'none';
 
             if (visible) {
@@ -445,6 +613,7 @@
         });
 
         resultCount.textContent = visibleCount + ' records';
+        totalCount.textContent = visibleCount;
         emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
     }
 
