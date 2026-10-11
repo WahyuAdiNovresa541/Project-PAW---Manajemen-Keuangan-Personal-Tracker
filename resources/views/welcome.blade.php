@@ -177,6 +177,44 @@
             font-size: 13px;
         }
 
+        .topbar-actions {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-left: auto;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 700px) {
+            .topbar-actions {
+                gap: 8px;
+            }
+
+            .logout-button {
+                padding: 8px 10px;
+            }
+        }
+
+        .logout-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 16px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--surface);
+            color: var(--expense);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .logout-button:hover {
+            background: var(--expense-light);
+        }
+
         .avatar {
             width: 36px;
             height: 36px;
@@ -604,6 +642,7 @@
     </aside>
 
     <main class="main">
+
         <header class="topbar">
             <div>
                 <p class="eyebrow">PERSONAL FINANCE TRACKER</p>
@@ -611,9 +650,15 @@
                 <p class="date">Ringkasan kondisi keuanganmu hari ini.</p>
             </div>
 
-            <div class="profile">
-                <div class="avatar">U</div>
-                <span class="profile-name">User</span>
+            <div class="topbar-actions">
+                <div class="profile">
+                    <div class="avatar">U</div>
+                    <span class="profile-name">User</span>
+                </div>
+
+                <a href="{{ url('/login') }}" class="logout-button">
+                    Logout
+                </a>
             </div>
         </header>
 

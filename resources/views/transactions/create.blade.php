@@ -528,13 +528,12 @@
                                 <div class="amount-wrapper">
                                     <span class="amount-prefix">Rp</span>
                                     <input
-                                        type="number"
+                                       type="text"
                                         id="amount"
                                         name="amount"
-                                        placeholder="0"
-                                        min="1"
-                                        step="1"
                                         inputmode="numeric"
+                                        placeholder="Contoh: 1500000"
+                                        autocomplete="off"
                                         required>
                                 </div>
                                 <span class="field-hint">
@@ -542,19 +541,14 @@
                                 </span>
                             </div>
 
+                            
                             <div class="form-group">
                                 <label for="category">Kategori</label>
                                 <select id="category" name="category" required>
                                     <option value="">Pilih kategori</option>
-                                    <option value="Food & Drink">Makanan & Minuman</option>
-                                    <option value="Transport">Transportasi</option>
-                                    <option value="Shopping">Belanja</option>
-                                    <option value="Bills">Tagihan</option>
-                                    <option value="Salary">Gaji</option>
-                                    <option value="Freelance">Freelance</option>
-                                    <option value="Other">Lainnya</option>
                                 </select>
                             </div>
+
 
                             <div class="form-group">
                                 <label for="date">Tanggal</label>
@@ -608,7 +602,55 @@
         const typeButtons = document.querySelectorAll('.type-option');
         const typeInput = document.getElementById('type');
         const transactionForm = document.getElementById('transactionForm');
+
+        const amountInput = document.getElementById('amount');
+
+        // Menambahkan titik sebagai pemisah ribuan.
+        amountInput.addEventListener('input', function () {
+            const numbers = this.value.replace(/\D/g, '');
+
+            this.value = numbers.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        });
+
         const dateInput = document.getElementById('date');
+        const categorySelect = document.getElementById('category');
+
+
+        
+        const categories = {
+            income: [
+                { value: 'Salary', label: 'Gaji' },
+                { value: 'Freelance', label: 'Freelance' },
+                { value: 'Bonus', label: 'Bonus' },
+                { value: 'Other', label: 'Lainnya' }
+            ],
+            expense: [
+                { value: 'Food & Drink', label: 'Makanan & Minuman' },
+                { value: 'Transport', label: 'Transportasi' },
+                { value: 'Shopping', label: 'Belanja' },
+                { value: 'Bills', label: 'Tagihan' },
+                { value: 'Other', label: 'Lainnya' }
+            ]
+        };
+
+        function updateCategories() {
+            const selectedType = typeInput.value;
+            const options = categories[selectedType];
+
+            categorySelect.innerHTML =
+                '<option value="">Pilih kategori</option>';
+
+            options.forEach(category => {
+                const option = document.createElement('option');
+                option.value = category.value;
+                option.textContent = category.label;
+                categorySelect.appendChild(option);
+            });
+        }
+
+        // Tampilkan kategori sesuai jenis transaksi awal.
+        updateCategories();
+
 
         // Pilih jenis pemasukan atau pengeluaran.
         typeButtons.forEach(button => {
@@ -621,6 +663,7 @@
                 button.classList.add('active');
                 button.setAttribute('aria-pressed', 'true');
                 typeInput.value = button.dataset.type;
+                updateCategories();
             });
         });
 
@@ -635,9 +678,43 @@
         dateInput.value = localToday;
 
         // Sementara, tampilkan konfirmasi karena backend belum terintegrasi.
+        
         transactionForm.addEventListener('submit', function(event) {
             event.preventDefault();
 
+            const nameInput = document.getElementById('name');
+            const amountInput = document.getElementById('amount');
+
+            // Nama transaksi tidak boleh kosong atau hanya spasi.
+            nameInput.value = nameInput.value.trim();
+
+            if (!nameInput.value) {
+                nameInput.setCustomValidity(
+                    'Nama transaksi wajib diisi.'
+                );
+                nameInput.reportValidity();
+                nameInput.setCustomValidity('');
+                return;
+            }
+
+            // Nominal harus berupa angka lebih besar dari nol.
+            const amount = Number(amountInput.value.replace(/\./g, ''));
+
+            if (
+                amountInput.value.trim() === '' ||
+                !Number.isFinite(amount) ||
+                amount <= 0 ||
+                !Number.isInteger(amount)
+            ) {
+                amountInput.setCustomValidity(
+                    'Nominal harus berupa bilangan bulat lebih besar dari Rp0.'
+                );
+                amountInput.reportValidity();
+                amountInput.setCustomValidity('');
+                return;
+            }
+
+            // Periksa validasi HTML untuk input lainnya.
             if (!transactionForm.checkValidity()) {
                 transactionForm.reportValidity();
                 return;
@@ -648,6 +725,7 @@
                 'setelah integrasi dengan backend.'
             );
         });
+
     </script>
 </body>
 </html>

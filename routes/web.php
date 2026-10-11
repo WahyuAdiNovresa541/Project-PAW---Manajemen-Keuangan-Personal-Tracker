@@ -13,3 +13,7 @@ Route::get('/transactions', function () {
 Route::get('/transactions/create', function () {
     return view('transactions.create');
 });
+
+Route::get('/login', function () {
+    return view('auth.login');
+})->name('login');

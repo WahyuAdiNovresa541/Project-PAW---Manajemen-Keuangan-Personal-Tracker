@@ -321,6 +321,15 @@
             font-size: 14px;
         }
 
+        .empty p {
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+
+        .empty .button {
+            display: inline-flex;
+        }
+
         /* Responsive layout */
         @media (max-width: 1000px) {
             .sidebar {
@@ -573,7 +582,10 @@
                 </table>
 
                 <div id="empty-state" class="empty">
-                    No matching transactions found.
+                    <p>No matching transactions found.</p>
+                    <a class="button" href="{{ url('/transactions/create') }}">
+                        + Add Transaction
+                    </a>
                 </div>
             </div>
         </section>
@@ -613,7 +625,6 @@
         });
 
         resultCount.textContent = visibleCount + ' records';
-        totalCount.textContent = visibleCount;
         emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
     }
 
