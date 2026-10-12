@@ -79,6 +79,30 @@ class TransactionController extends Controller
     public function destroy($id) 
     {
         $transaction = Transaction::findOrFail($id);
+<<<<<<< HEAD
+=======
+        return view('transaction.edit', compact('transaction'));
+    }
+
+    public function update(Request $request, $id) {
+        $transaction = Transaction::findOrFail($id);
+
+        $validated = $request->validate([
+            'tanggal'   => 'required|date',
+            'jenis'     => 'required|in:Pemasukan,Pengeluaran',
+            'deskripsi' => 'required|string|max:100',
+            'kategori'  => 'required|string|max:50',
+            'jumlah'    => 'required|numeric|min:0',
+        ]);
+
+        $transaction->update($validated);
+
+        return redirect()->route('transactions.index')->with('success', 'Transaksi berhasil diperbarui!');
+    }
+
+    public function destroy($id) {
+        $transaction = Transaction::findOrFail($id);
+>>>>>>> f25c3152bfbc90f4346291f275483c0e8c0035ed
         $transaction->delete();
 
         return redirect()->route('transactions.index')->with('success', 'Transaksi berhasil dihapus!');
