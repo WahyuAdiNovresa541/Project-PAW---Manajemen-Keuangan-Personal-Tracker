@@ -15,7 +15,9 @@ Route::post('/login', [AuthController::class, 'authenticate']);
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
+
 Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
 Route::get('/transactions/create', [TransactionController::class, 'create'])->name('transactions.create');
+Route::post('/transactions', [TransactionController::class, 'store'])->name('transactions.store');
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
