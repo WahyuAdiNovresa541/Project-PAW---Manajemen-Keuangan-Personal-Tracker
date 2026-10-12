@@ -51,7 +51,7 @@ class TransactionController extends Controller {
 
     public function destroy($id) {
         $transaction = Transaction::findOrFail($id);
-        $transaction::delete();
+        $transaction->delete();
 
         return redirect()->route('transactions.index')->with('success', 'Transaksi berhasil dihapus!');
     }
