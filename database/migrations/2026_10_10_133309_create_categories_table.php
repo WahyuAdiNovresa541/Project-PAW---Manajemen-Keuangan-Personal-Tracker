@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('name');
-            $table->enum('type', ['income', 'expense']);
+            $table->date('tanggal');
+            $table->enum('jenis', ['Pemasukan', 'Pengeluaran']);
+            $table->string('deskripsi', 100);
+            $table->string('kategori', 50);
+            $table->decimal('jumlah', 15, 2);
             $table->timestamps();
         });
     }
