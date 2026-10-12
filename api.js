@@ -1,4 +1,4 @@
-const apiKey = "1|gT8y...token_yang_didapat_dari_login_backend...xyz"; // Ini token dinamis dari backend
+const apiKey = ""; // Ini token dinamis dari backend
 
 fetch('http://127.0.0.1:8000/api/posts', {
     method: 'POST',
