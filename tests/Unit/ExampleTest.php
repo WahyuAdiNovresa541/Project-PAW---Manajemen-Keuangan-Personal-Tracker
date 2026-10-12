@@ -1,16 +1,20 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Feature;
 
-use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
 
 class ExampleTest extends TestCase
 {
-    /**
-     * A basic test example.
-     */
-    public function test_that_true_is_true(): void
+    protected function setUp(): void
     {
-        $this->assertTrue(true);
+        parent::setUp();
+
+        $this->withoutVite();
+    }
+
+    public function test_the_homepage_redirects_to_login(): void
+    {
+        $this->get('/')->assertRedirect('/login');
     }
 }
