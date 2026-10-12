@@ -8,11 +8,8 @@ use App\Models\Category;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
-class TransactionController extends Controller 
-{
-    public function index() 
-    {
-        // Ambil transaksi beserta relasi kategori
+class TransactionController extends Controller {
+    public function index() {
         $transactions = Transaction::with('category')->latest('date')->get();
         
         $totalIncome = Transaction::where('type', 'income')->sum('amount');
@@ -21,17 +18,14 @@ class TransactionController extends Controller
         return view('transactions.index', compact('transactions', 'totalIncome', 'totalExpense'));
     }
 
-    public function create() 
-    {
-        // Ambil daftar kategori terpisah untuk Pemasukan dan Pengeluaran
+    public function create() {
         $incomeCategories = Category::where('type', 'income')->get();
         $expenseCategories = Category::where('type', 'expense')->get();
 
         return view('transactions.create', compact('incomeCategories', 'expenseCategories'));
     }
 
-    public function store(Request $request) 
-    {
+    public function store(Request $request) {
         $validated = $request->validate([
             'tanggal'   => 'required|date',
             'type'      => 'required|in:income,expense',
@@ -50,7 +44,6 @@ class TransactionController extends Controller
             $userId = $user->id;
         }
 
-        // Cari atau buat kategori sesuai tipe
         $category = Category::where('name', $validated['category'])->first();
         if ($category) {
             $categoryId = $category->id;
@@ -76,12 +69,9 @@ class TransactionController extends Controller
         return redirect()->route('transactions.index')->with('success', 'Transaksi berhasil ditambahkan!');
     }
 
-    public function destroy($id) 
-    {
+    public function edit($id) {
         $transaction = Transaction::findOrFail($id);
-<<<<<<< HEAD
-=======
-        return view('transaction.edit', compact('transaction'));
+        return view('transactions.index', compact('transaction'));
     }
 
     public function update(Request $request, $id) {
@@ -102,7 +92,6 @@ class TransactionController extends Controller
 
     public function destroy($id) {
         $transaction = Transaction::findOrFail($id);
->>>>>>> f25c3152bfbc90f4346291f275483c0e8c0035ed
         $transaction->delete();
 
         return redirect()->route('transactions.index')->with('success', 'Transaksi berhasil dihapus!');
