@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -39,7 +38,6 @@
             min-height: 100vh;
         }
 
-        /* Sidebar */
         .sidebar {
             width: 245px;
             flex-shrink: 0;
@@ -51,22 +49,15 @@
         .brand {
             display: flex;
             align-items: center;
-            justify-content: flex-start;
             gap: 10px;
-            width: 100%;
             margin-bottom: 34px;
             font-size: 22px;
-            line-height: 1.2;
             font-weight: 700;
-            color: var(--text);
-            white-space: nowrap;
         }
 
         .brand-icon {
             width: 40px;
             height: 40px;
-            min-width: 40px;
-            flex-shrink: 0;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -74,20 +65,15 @@
             color: #FFFFFF;
             border-radius: 10px;
             font-size: 22px;
-            line-height: 1;
             font-weight: 700;
         }
 
         .nav-label {
-            display: block;
-            margin: 0 0 12px 4px;
-            padding: 0;
             font-size: 11px;
-            line-height: 1.6;
             font-weight: 700;
             letter-spacing: 1px;
             color: var(--text-muted);
-            overflow-wrap: break-word;
+            margin-bottom: 12px;
         }
 
         .nav {
@@ -99,15 +85,13 @@
         .nav a {
             display: flex;
             align-items: center;
-            width: 100%;
             min-height: 44px;
             padding: 12px 14px;
             border-radius: 9px;
             text-decoration: none;
             color: var(--text-muted);
             font-size: 14px;
-            line-height: 1.5;
-            transition: background 0.2s, color 0.2s;
+            transition: 0.2s;
         }
 
         .nav a:hover {
@@ -121,10 +105,8 @@
             font-weight: 700;
         }
 
-        /* Main content */
         .main {
             flex: 1;
-            min-width: 0;
             padding: 35px;
         }
 
@@ -132,27 +114,22 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 20px;
             margin-bottom: 30px;
         }
 
         h1 {
             font-size: 28px;
-            letter-spacing: -0.5px;
             margin-bottom: 8px;
         }
 
         .subtitle {
             color: var(--text-muted);
             font-size: 14px;
-            line-height: 1.6;
         }
 
         .button {
             display: inline-flex;
             align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
             background: var(--primary);
             color: #FFFFFF;
             text-decoration: none;
@@ -160,16 +137,22 @@
             border-radius: 9px;
             font-size: 13px;
             font-weight: 700;
-            border: none;
-            cursor: pointer;
-            transition: background 0.2s;
         }
 
         .button:hover {
             background: var(--primary-dark);
         }
 
-        /* Summary cards */
+        .alert-success {
+            padding: 12px 16px;
+            background: var(--income-light);
+            color: var(--income);
+            border: 1px solid #9BD6BA;
+            border-radius: 9px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
         .summary {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -178,7 +161,6 @@
         }
 
         .summary-card {
-            min-width: 0;
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 14px;
@@ -187,26 +169,17 @@
 
         .summary-card p {
             font-size: 13px;
-            line-height: 1.5;
             color: var(--text-muted);
             margin-bottom: 13px;
         }
 
         .summary-card h2 {
             font-size: 22px;
-            line-height: 1.4;
-            overflow-wrap: anywhere;
         }
 
-        .income {
-            color: var(--income);
-        }
+        .income { color: var(--income); }
+        .expense { color: var(--expense); }
 
-        .expense {
-            color: var(--expense);
-        }
-
-        /* Panels and filters */
         .panel {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -215,76 +188,42 @@
             margin-bottom: 22px;
         }
 
-        .panel-title {
-            font-size: 17px;
-            line-height: 1.5;
-        }
+        .panel-title { font-size: 17px; }
 
         .filters {
             display: flex;
-            flex-wrap: wrap;
             gap: 12px;
             margin-top: 20px;
         }
 
-        input,
-        select {
-            min-height: 42px;
+        input, select {
             padding: 11px 13px;
             border: 1px solid var(--border);
             border-radius: 8px;
-            background: var(--surface);
-            color: var(--text);
             font-size: 13px;
             outline: none;
         }
 
-        input {
-            flex: 1;
-            min-width: 180px;
-        }
+        input { flex: 1; }
 
-        select {
-            min-width: 150px;
-            cursor: pointer;
-        }
-
-        input:focus,
-        select:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(21, 94, 117, 0.10);
-        }
-
-        /* Transaction table */
         .table-heading {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
             margin-bottom: 20px;
         }
 
-        .table-heading h2 {
-            font-size: 17px;
-        }
-
-        .table-wrap {
-            overflow-x: auto;
-            width: 100%;
-        }
+        .table-wrap { overflow-x: auto; }
 
         table {
             width: 100%;
             border-collapse: collapse;
             text-align: left;
-            white-space: nowrap;
         }
 
         th {
             font-size: 12px;
             color: var(--text-muted);
-            font-weight: 700;
             padding: 14px 12px;
             border-bottom: 1px solid #EDF2F4;
         }
@@ -295,12 +234,7 @@
             border-bottom: 1px solid #F0F4F5;
         }
 
-        tbody tr:last-child td {
-            border-bottom: none;
-        }
-
         .category {
-            display: inline-block;
             background: #F0F6F8;
             padding: 6px 10px;
             border-radius: 6px;
@@ -308,135 +242,8 @@
             font-size: 12px;
         }
 
-        .type {
-            font-size: 12px;
-            font-weight: 700;
-        }
-
-        .empty {
-            text-align: center;
-            padding: 30px;
-            color: var(--text-muted);
-            display: none;
-            font-size: 14px;
-        }
-
-        .empty p {
-            margin-bottom: 16px;
-            line-height: 1.6;
-        }
-
-        .empty .button {
-            display: inline-flex;
-        }
-
-        /* Responsive layout */
-        @media (max-width: 1000px) {
-            .sidebar {
-                width: 220px;
-                padding: 28px 16px;
-            }
-
-            .main {
-                padding: 28px 22px;
-            }
-
-            .summary {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 650px) {
-            .layout {
-                flex-direction: column;
-            }
-
-            .sidebar {
-                width: 100%;
-                padding: 18px 20px;
-                border-right: none;
-                border-bottom: 1px solid var(--border);
-            }
-
-            .brand {
-                margin-bottom: 20px;
-                font-size: 21px;
-            }
-
-            .brand-icon {
-                width: 40px;
-                height: 40px;
-            }
-
-            .nav-label {
-                margin-bottom: 10px;
-            }
-
-            .nav {
-                flex-direction: row;
-                flex-wrap: wrap;
-                gap: 6px;
-            }
-
-            .nav a {
-                flex: 1 1 auto;
-                justify-content: center;
-                width: auto;
-                min-height: 40px;
-                padding: 10px;
-                text-align: center;
-                font-size: 13px;
-            }
-
-            .main {
-                padding: 24px 16px;
-            }
-
-            .topbar {
-                align-items: flex-start;
-                flex-direction: column;
-                gap: 16px;
-            }
-
-            h1 {
-                font-size: 25px;
-            }
-
-            .button {
-                width: 100%;
-            }
-
-            .summary {
-                gap: 12px;
-            }
-
-            .summary-card {
-                padding: 18px;
-            }
-
-            .summary-card h2 {
-                font-size: 21px;
-            }
-
-            .panel {
-                padding: 18px 14px;
-            }
-
-            .filters {
-                flex-direction: column;
-            }
-
-            input,
-            select {
-                width: 100%;
-                min-width: 0;
-            }
-
-            .table-heading {
-                align-items: flex-start;
-                flex-direction: column;
-            }
-        }
+        .income-text { color: var(--income); font-weight: bold; }
+        .expense-text { color: var(--expense); font-weight: bold; }
     </style>
 </head>
 
@@ -451,45 +258,43 @@
 
         <p class="nav-label">MENU UTAMA</p>
 
-        <nav class="nav" aria-label="Navigasi utama">
-            <a href="{{ url('/') }}">Dashboard</a>
-            <a href="{{ url('/transactions') }}"
-               class="active"
-               aria-current="page">
-                Transactions
-            </a>
-            <a href="{{ url('/transactions/create') }}">Add Transaction</a>
+        <nav class="nav">
+            <a href="{{ route('dashboard') }}">Dashboard</a>
+            <a href="{{ route('transactions.index') }}" class="active">Transactions</a>
+            <a href="{{ route('transactions.create') }}">Add Transaction</a>
         </nav>
     </aside>
 
     <main class="main">
+        @if(session('success'))
+            <div class="alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
         <header class="topbar">
             <div>
                 <h1>Transactions</h1>
-                <p class="subtitle">
-                    Manage and review your income and expenses.
-                </p>
+                <p class="subtitle">Manage and review your income and expenses.</p>
             </div>
 
-            <a class="button" href="{{ url('/transactions/create') }}">
-                + Add Transaction
-            </a>
+            <a class="button" href="{{ route('transactions.create') }}">+ Add Transaction</a>
         </header>
 
         <section class="summary">
             <div class="summary-card">
                 <p>Total Transactions</p>
-                <h2 id="total-count">6</h2>
+                <h2>{{ $transactions->count() }}</h2>
             </div>
 
             <div class="summary-card">
                 <p>Total Income</p>
-                <h2 class="income">Rp 8.500.000</h2>
+                <h2 class="income">Rp {{ number_format($totalIncome ?? 0, 0, ',', '.') }}</h2>
             </div>
 
             <div class="summary-card">
                 <p>Total Expenses</p>
-                <h2 class="expense">Rp 3.250.000</h2>
+                <h2 class="expense">Rp {{ number_format($totalExpense ?? 0, 0, ',', '.') }}</h2>
             </div>
         </section>
 
@@ -497,14 +302,8 @@
             <h2 class="panel-title">Find a transaction</h2>
 
             <div class="filters">
-                <input
-                    type="text"
-                    id="search"
-                    placeholder="Search transaction or category..."
-                    aria-label="Cari transaksi"
-                >
-
-                <select id="type-filter" aria-label="Filter jenis transaksi">
+                <input type="text" id="searchInput" placeholder="Search transaction or category...">
+                <select id="typeFilter">
                     <option value="all">All types</option>
                     <option value="income">Income</option>
                     <option value="expense">Expense</option>
@@ -515,11 +314,11 @@
         <section class="panel">
             <div class="table-heading">
                 <h2>All Transactions</h2>
-                <span class="subtitle" id="result-count">6 records</span>
+                <span class="subtitle">{{ $transactions->count() }} records</span>
             </div>
 
             <div class="table-wrap">
-                <table>
+                <table id="transactionsTable">
                     <thead>
                         <tr>
                             <th>TRANSACTION</th>
@@ -529,107 +328,60 @@
                             <th>AMOUNT</th>
                         </tr>
                     </thead>
-
-                    <tbody id="transaction-list">
-                        <tr data-type="income">
-                            <td>Monthly Salary</td>
-                            <td><span class="category">Salary</span></td>
-                            <td>10 Oct 2026</td>
-                            <td><span class="type income">Income</span></td>
-                            <td class="income">+ Rp 5.000.000</td>
-                        </tr>
-
-                        <tr data-type="expense">
-                            <td>Lunch</td>
-                            <td><span class="category">Food</span></td>
-                            <td>10 Oct 2026</td>
-                            <td><span class="type expense">Expense</span></td>
-                            <td class="expense">- Rp 35.000</td>
-                        </tr>
-
-                        <tr data-type="expense">
-                            <td>Internet Bill</td>
-                            <td><span class="category">Bills</span></td>
-                            <td>09 Oct 2026</td>
-                            <td><span class="type expense">Expense</span></td>
-                            <td class="expense">- Rp 250.000</td>
-                        </tr>
-
-                        <tr data-type="income">
-                            <td>Freelance Project</td>
-                            <td><span class="category">Freelance</span></td>
-                            <td>08 Oct 2026</td>
-                            <td><span class="type income">Income</span></td>
-                            <td class="income">+ Rp 2.500.000</td>
-                        </tr>
-
-                        <tr data-type="expense">
-                            <td>Transport</td>
-                            <td><span class="category">Transport</span></td>
-                            <td>07 Oct 2026</td>
-                            <td><span class="type expense">Expense</span></td>
-                            <td class="expense">- Rp 65.000</td>
-                        </tr>
-
-                        <tr data-type="income">
-                            <td>Side Project</td>
-                            <td><span class="category">Other Income</span></td>
-                            <td>05 Oct 2026</td>
-                            <td><span class="type income">Income</span></td>
-                            <td class="income">+ Rp 1.000.000</td>
-                        </tr>
+                    <tbody>
+                        @forelse($transactions as $item)
+                            @php
+                                $isIncome = strtolower($item->type) === 'income';
+                                $amountClass = $isIncome ? 'income-text' : 'expense-text';
+                                $sign = $isIncome ? '+' : '-';
+                            @endphp
+                            <tr data-type="{{ strtolower($item->type) }}" data-search="{{ strtolower($item->description . ' ' . ($item->category->name ?? 'umum')) }}">
+                                <td>{{ $item->description }}</td>
+                                <td><span class="category">{{ $item->category->name ?? 'Umum' }}</span></td>
+                                <td>{{ \Carbon\Carbon::parse($item->date)->format('d M Y') }}</td>
+                                <td><strong>{{ ucfirst($item->type) }}</strong></td>
+                                <td class="{{ $amountClass }}">
+                                    {{ $sign }} Rp {{ number_format($item->amount, 0, ',', '.') }}
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="5" style="text-align: center; padding: 20px;">Belum ada transaksi.</td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
-
-                <div id="empty-state" class="empty">
-                    <p>No matching transactions found.</p>
-                    <a class="button" href="{{ url('/transactions/create') }}">
-                        + Add Transaction
-                    </a>
-                </div>
             </div>
         </section>
     </main>
 </div>
 
 <script>
-    const searchInput = document.getElementById('search');
-    const typeFilter = document.getElementById('type-filter');
-    const rows = Array.from(
-        document.querySelectorAll('#transaction-list tr')
-    );
-    const emptyState = document.getElementById('empty-state');
-    const resultCount = document.getElementById('result-count');
-    const totalCount = document.getElementById('total-count');
+    const searchInput = document.getElementById('searchInput');
+    const typeFilter = document.getElementById('typeFilter');
+    const tableRows = document.querySelectorAll('#transactionsTable tbody tr');
 
-    function filterTransactions() {
-        const query = searchInput.value.toLowerCase().trim();
+    function filterTable() {
+        const query = searchInput.value.toLowerCase();
         const selectedType = typeFilter.value;
-        let visibleCount = 0;
 
-        rows.forEach(function (row) {
-            const matchesSearch = row.textContent
-                .toLowerCase()
-                .includes(query);
+        tableRows.forEach(row => {
+            const searchData = row.dataset.search || '';
+            const rowType = row.dataset.type || '';
 
-            const matchesType = selectedType === 'all'
-                || row.dataset.type === selectedType;
+            const matchesSearch = searchData.includes(query);
+            const matchesType = selectedType === 'all' || rowType === selectedType;
 
-            const visible = matchesSearch && matchesType;
-
-            row.style.display = visible ? '' : 'none';
-
-            if (visible) {
-                visibleCount++;
+            if (matchesSearch && matchesType) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
             }
         });
-
-        resultCount.textContent = visibleCount + ' records';
-        emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
     }
 
-    searchInput.addEventListener('input', filterTransactions);
-    typeFilter.addEventListener('change', filterTransactions);
+    searchInput.addEventListener('input', filterTable);
+    typeFilter.addEventListener('change', filterTable);
 </script>
 </body>
 </html>
