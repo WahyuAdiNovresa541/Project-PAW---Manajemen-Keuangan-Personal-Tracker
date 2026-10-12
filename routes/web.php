@@ -11,6 +11,13 @@ Route::middleware('guest')->group(function () {
     Route::post('/login', [AuthController::class, 'authenticate']);
 });
 
+use App\Http\Controllers\AuthController;
+
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+    Route::post('/login', [AuthController::class, 'authenticate']);
+});
+
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 

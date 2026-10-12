@@ -5,6 +5,8 @@ class ControllerTransactionController
 {
     private $model;
 
+    private const ALLOWED_TYPES = ['pemasukan', 'pengeluaran'];
+
     public function __construct($model)
     {
         $this->model = $model;
@@ -29,20 +31,10 @@ class ControllerTransactionController
             exit;
         }
 
-        $data = [
-            'transaction_date' => trim($_POST['transaction_date'] ?? ''),
-            'description'      => trim($_POST['description'] ?? ''),
-            'amount'           => trim($_POST['amount'] ?? ''),
-            'status'           => trim($_POST['status'] ?? ''),
-        ];
+        $data = $this->collectInput();
 
-        if (
-            $data['transaction_date'] === '' ||
-            $data['description'] === '' ||
-            $data['amount'] === '' ||
-            !is_numeric($data['amount'])
-        ) {
-            $error = 'Tanggal, deskripsi, dan jumlah transaksi harus diisi dengan benar.';
+        if (!$this->isValid($data)) {
+            $error = 'Tanggal, jenis, deskripsi, kategori, dan jumlah transaksi harus diisi dengan benar.';
             include 'views/transaction/create.php';
             return;
         }
@@ -87,21 +79,11 @@ class ControllerTransactionController
             exit;
         }
 
-        $data = [
-            'transaction_date' => trim($_POST['transaction_date'] ?? ''),
-            'description'      => trim($_POST['description'] ?? ''),
-            'amount'           => trim($_POST['amount'] ?? ''),
-            'status'           => trim($_POST['status'] ?? ''),
-        ];
+        $data = $this->collectInput();
 
-        if (
-            $data['transaction_date'] === '' ||
-            $data['description'] === '' ||
-            $data['amount'] === '' ||
-            !is_numeric($data['amount'])
-        ) {
+        if (!$this->isValid($data)) {
             $transaction = array_merge(['id' => $id], $data);
-            $error = 'Tanggal, deskripsi, dan jumlah transaksi harus diisi dengan benar.';
+            $error = 'Tanggal, jenis, deskripsi, kategori, dan jumlah transaksi harus diisi dengan benar.';
             include 'views/transaction/edit.php';
             return;
         }
@@ -125,5 +107,28 @@ class ControllerTransactionController
 
         header('Location: index.php?controller=transaction&action=index');
         exit;
+    }
+
+
+    private function collectInput()
+    {
+        return [
+            'transaction_date' => trim($_POST['transaction_date'] ?? ''),
+            'type'             => strtolower(trim($_POST['type'] ?? '')),
+            'description'      => trim($_POST['description'] ?? ''),
+            'category'         => trim($_POST['category'] ?? ''),
+            'amount'           => trim($_POST['amount'] ?? ''),
+        ];
+    }
+
+    private function isValid(array $data)
+    {
+        return $data['transaction_date'] !== ''
+            && in_array($data['type'], self::ALLOWED_TYPES, true)
+            && $data['description'] !== ''
+            && $data['category'] !== ''
+            && $data['amount'] !== ''
+            && is_numeric($data['amount'])
+            && (float) $data['amount'] > 0;
     }
 }
