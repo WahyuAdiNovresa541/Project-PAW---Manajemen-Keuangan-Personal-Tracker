@@ -518,6 +518,132 @@
             text-align: center;
         }
 
+        
+        /* Monthly Budget */
+        .budget-panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 23px;
+            margin-bottom: 30px;
+        }
+
+        .budget-overview {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: 20px;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .budget-total {
+            font-size: 27px;
+            font-weight: 700;
+            margin: 12px 0 8px;
+            overflow-wrap: anywhere;
+        }
+
+        .budget-progress {
+            height: 9px;
+            background: #E8EFF2;
+            border-radius: 99px;
+            overflow: hidden;
+            margin: 12px 0;
+        }
+
+        .budget-progress-bar {
+            height: 100%;
+            background: var(--income);
+            border-radius: inherit;
+        }
+
+        .budget-remaining {
+            color: var(--income);
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .budget-button {
+            border: 1px solid var(--primary);
+            background: var(--primary);
+            color: white;
+            padding: 11px 16px;
+            border-radius: 9px;
+            font: inherit;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .budget-button:hover {
+            background: var(--primary-dark);
+        }
+
+        .budget-category-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .budget-category {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            min-width: 0;
+        }
+
+        .budget-category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .budget-category-name {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .budget-category-amount {
+            color: var(--text-muted);
+            font-size: 11px;
+            text-align: right;
+            overflow-wrap: anywhere;
+        }
+
+        .budget-category .budget-progress {
+            height: 6px;
+            margin: 10px 0 0;
+        }
+
+        .budget-category .budget-progress-bar.warning {
+            background: #D97706;
+        }
+
+        .budget-category .budget-progress-bar.over {
+            background: var(--expense);
+        }
+
+        @media (max-width: 700px) {
+            .budget-panel {
+                padding: 17px;
+            }
+
+            .budget-overview {
+                grid-template-columns: 1fr;
+            }
+
+            .budget-button {
+                width: 100%;
+            }
+
+            .budget-category-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+
         /* Tablet */
         @media (max-width: 1050px) {
             .sidebar {
@@ -608,7 +734,118 @@
             h1 {
                 font-size: 23px;
             }
+            
         }
+
+        
+        /* Budget Modal */
+        .budget-modal[hidden] {
+            display: none;
+        }
+
+        .budget-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .budget-modal-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(15, 35, 45, 0.5);
+        }
+
+        .budget-modal-content {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 480px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 24px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .budget-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .budget-modal-header h2 {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .budget-modal-close {
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        .budget-form-field {
+            margin-bottom: 18px;
+        }
+
+        .budget-form-field label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .budget-form-field input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            font: inherit;
+            color: var(--text);
+        }
+
+        .budget-form-field input:focus {
+            outline: 2px solid var(--primary-light);
+            border-color: var(--primary);
+        }
+
+        .budget-modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 24px;
+        }
+
+        .budget-cancel-button {
+            padding: 11px 16px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            border-radius: 9px;
+            font: inherit;
+            cursor: pointer;
+        }
+
+        @media (max-width: 480px) {
+            .budget-modal-content {
+                padding: 18px;
+            }
+
+            .budget-modal-actions > button {
+                flex: 1;
+            }
+        }
+
     </style>
 </head>
 
@@ -665,7 +902,9 @@
         <section class="balance-card">
             <div>
                 <p class="balance-label">Total Saldo</p>
-                <h2 class="balance-amount">Rp 5.250.000</h2>
+                <h2 class="balance-amount">
+                    Rp {{ number_format($dashboard['saldo'], 0, ',', '.') }}
+                </h2>
                 <p class="balance-caption">Ringkasan saldo dari data contoh</p>
             </div>
             <div class="balance-icon">▤</div>
@@ -679,7 +918,9 @@
                     <p class="summary-label">Total Pemasukan</p>
                     <span class="summary-icon income-icon">↙</span>
                 </div>
-                <h3 class="summary-amount">Rp 7.500.000</h3>
+                <h3 class="summary-amount">
+                    Rp {{ number_format($dashboard['pemasukan'], 0, ',', '.') }}
+                </h3>
                 <p class="summary-caption">Bulan ini · Data contoh</p>
             </article>
 
@@ -688,7 +929,9 @@
                     <p class="summary-label">Total Pengeluaran</p>
                     <span class="summary-icon expense-icon">↗</span>
                 </div>
-                <h3 class="summary-amount">Rp 2.250.000</h3>
+                <h3 class="summary-amount">
+                    Rp {{ number_format($dashboard['pengeluaran'], 0, ',', '.') }}
+                </h3>
                 <p class="summary-caption">Bulan ini · Data contoh</p>
             </article>
 
@@ -697,10 +940,67 @@
                     <p class="summary-label">Sisa Dana</p>
                     <span class="summary-icon saving-icon">◷</span>
                 </div>
-                <h3 class="summary-amount">Rp 5.250.000</h3>
+                <h3 class="summary-amount">
+                    Rp {{ number_format($dashboard['saldo'], 0, ',', '.') }}
+                </h3>
                 <p class="summary-caption">Pemasukan dikurangi pengeluaran</p>
             </article>
         </section>
+
+      
+        <section class="budget-panel">
+            <div class="panel-header">
+                <div>
+                    <h2 class="section-title">Anggaran Bulanan</h2>
+                    <p class="summary-label">Oktober 2026 · Data contoh</p>
+                </div>
+
+                <button
+                    type="button"
+                    class="budget-button"
+                    id="open-budget-modal"
+                >
+                    Atur Anggaran
+                </button>
+            </div>
+
+            <div class="budget-overview">
+                <div>
+                    <p class="summary-label">Total pengeluaran dari anggaran</p>
+                    <h3 class="budget-total" id="budget-total">Rp0</h3>
+                    <p class="summary-label">
+                        dari batas <span id="budget-limit">Rp0</span>
+                    </p>
+
+                    <div
+                        class="budget-progress"
+                        role="progressbar"
+                        aria-label="Pemakaian anggaran bulanan"
+                        aria-valuenow="0"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                        id="budget-overview-progress"
+                    >
+                        <div
+                            class="budget-progress-bar"
+                            id="budget-overview-bar"
+                            style="width: 0%"
+                        ></div>
+                    </div>
+
+                    <p class="budget-remaining" id="budget-remaining">
+                        0% terpakai · Sisa Rp0
+                    </p>
+                </div>
+            </div>
+
+            <h3 class="section-title">Anggaran per Kategori</h3>
+
+            <div class="budget-category-grid" id="budget-category-grid">
+                <!-- Kategori akan ditampilkan oleh JavaScript -->
+            </div>
+        </section>
+
 
         <section class="content-grid">
             <article class="panel">
@@ -802,5 +1102,333 @@
         </p>
     </main>
 </div>
+
+
+<div class="budget-modal" id="budget-modal" hidden>
+    <div class="budget-modal-overlay" id="budget-modal-overlay"></div>
+
+    <div
+        class="budget-modal-content"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="budget-modal-title"
+    >
+        <div class="budget-modal-header">
+            <div>
+                <h2 id="budget-modal-title">Atur Anggaran</h2>
+                <p class="summary-label">
+                    Sesuaikan batas anggaran setiap kategori.
+                </p>
+            </div>
+
+            <button
+                type="button"
+                class="budget-modal-close"
+                id="close-budget-modal"
+                aria-label="Tutup modal"
+            >
+                &times;
+            </button>
+        </div>
+
+        <form id="budget-form">
+            <div id="budget-form-fields"></div>
+
+            <div class="budget-modal-actions">
+                <button
+                    type="button"
+                    class="budget-cancel-button"
+                    id="cancel-budget-modal"
+                >
+                    Batal
+                </button>
+
+                <button type="submit" class="budget-button">
+                    Simpan Anggaran
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script>
+const budgets = [
+    {
+        category: 'Food & Drink',
+        label: 'Makanan & Minuman',
+        limit: 1000000,
+        spent: 600000
+    },
+    {
+        category: 'Transport',
+        label: 'Transportasi',
+        limit: 500000,
+        spent: 250000
+    },
+    {
+        category: 'Education',
+        label: 'Pendidikan',
+        limit: 500000,
+        spent: 300000
+    },
+    {
+        category: 'Entertainment',
+        label: 'Hiburan',
+        limit: 400000,
+        spent: 350000
+    }
+];
+
+
+const budgetStorageKey = 'fintrack_budgets';
+
+
+const transactionStorageKey = 'fintrack_transactions';
+
+function loadTransactions() {
+    try {
+        const savedTransactions = JSON.parse(
+            localStorage.getItem(transactionStorageKey) || '[]'
+        );
+
+        return Array.isArray(savedTransactions)
+            ? savedTransactions
+            : [];
+    } catch (error) {
+        console.error('Gagal memuat transaksi:', error);
+        return [];
+    }
+}
+
+
+// Memuat anggaran yang pernah disimpan di browser.
+function loadBudgets() {
+    try {
+        const savedBudgets = localStorage.getItem(budgetStorageKey);
+
+        if (!savedBudgets) return;
+
+        const parsedBudgets = JSON.parse(savedBudgets);
+
+        if (!Array.isArray(parsedBudgets)) return;
+
+        budgets.forEach(item => {
+            const savedItem = parsedBudgets.find(
+                saved => saved.category === item.category
+            );
+
+            if (
+                savedItem &&
+                Number.isFinite(savedItem.limit) &&
+                savedItem.limit >= 0
+            ) {
+                item.limit = savedItem.limit;
+            }
+        });
+    } catch (error) {
+        console.error('Gagal memuat anggaran:', error);
+    }
+}
+
+// Menyimpan anggaran ke browser.
+function saveBudgets() {
+    try {
+        localStorage.setItem(
+            budgetStorageKey,
+            JSON.stringify(budgets)
+        );
+
+        return true;
+    } catch (error) {
+        console.error('Gagal menyimpan anggaran:', error);
+        alert('Anggaran gagal disimpan di browser.');
+        return false;
+    }
+}
+
+
+const rupiah = (amount) =>
+    'Rp' + amount.toLocaleString('id-ID');
+
+
+function renderBudgets() {
+    const transactions = loadTransactions();
+
+    // Ambil bulan dan tahun saat ini.
+    const today = new Date();
+    const currentMonth = today.getMonth() + 1;
+    const currentYear = today.getFullYear();
+
+    // Hitung pengeluaran aktual untuk setiap kategori.
+    budgets.forEach(item => {
+        item.spent = transactions.reduce((total, transaction) => {
+            if (
+                transaction.type !== 'expense' ||
+                transaction.category !== item.category ||
+                !transaction.date
+            ) {
+                return total;
+            }
+
+            const [year, month] = transaction.date.split('-').map(Number);
+            const amount = Number(transaction.amount);
+
+            if (
+                year === currentYear &&
+                month === currentMonth &&
+                Number.isFinite(amount) &&
+                amount > 0
+            ) {
+                return total + amount;
+            }
+
+            return total;
+        }, 0);
+    });
+
+    const totalSpent = budgets.reduce(
+        (total, item) => total + item.spent, 0
+    );
+
+    const totalLimit = budgets.reduce(
+        (total, item) => total + item.limit, 0
+    );
+
+    const remaining = totalLimit - totalSpent;
+    const percentage = totalLimit > 0
+        ? (totalSpent / totalLimit) * 100
+        : 0;
+
+    document.getElementById('budget-total').textContent =
+        rupiah(totalSpent);
+
+    document.getElementById('budget-limit').textContent =
+        rupiah(totalLimit);
+
+    document.getElementById('budget-remaining').textContent =
+        `${percentage.toLocaleString('id-ID', {
+            maximumFractionDigits: 1
+        })}% terpakai · Sisa ${rupiah(remaining)}`;
+
+    document.getElementById('budget-overview-progress')
+        .setAttribute('aria-valuenow', Math.min(percentage, 100));
+
+    document.getElementById('budget-overview-bar').style.width =
+        `${Math.min(percentage, 100)}%`;
+
+    const categoryGrid = document.getElementById(
+        'budget-category-grid'
+    );
+
+    categoryGrid.innerHTML = budgets.map(item => {
+        const categoryPercentage = item.limit > 0
+            ? (item.spent / item.limit) * 100
+            : 0;
+
+        const warningClass = categoryPercentage >= 100
+            ? 'over'
+            : categoryPercentage >= 80
+                ? 'warning'
+                : '';
+
+        return `
+            <article class="budget-category">
+                <div class="budget-category-header">
+                    <p class="budget-category-name">${item.label}</p>
+                    <p class="budget-category-amount">
+                        ${rupiah(item.spent)} / ${rupiah(item.limit)}
+                    </p>
+                </div>
+
+                <div class="budget-progress">
+                    <div
+                        class="budget-progress-bar ${warningClass}"
+                        style="width: ${Math.min(categoryPercentage, 100)}%"
+                    ></div>
+                </div>
+            </article>
+        `;
+    }).join('');
+}
+
+renderBudgets();
+
+
+const budgetModal = document.getElementById('budget-modal');
+const openBudgetButton = document.getElementById('open-budget-modal');
+const closeBudgetButton = document.getElementById('close-budget-modal');
+const cancelBudgetButton = document.getElementById('cancel-budget-modal');
+const budgetModalOverlay = document.getElementById('budget-modal-overlay');
+const budgetForm = document.getElementById('budget-form');
+const budgetFormFields = document.getElementById('budget-form-fields');
+
+// Membuka modal dan menampilkan batas anggaran saat ini.
+function openBudgetModal() {
+    budgetFormFields.innerHTML = budgets.map((item, index) => `
+        <div class="budget-form-field">
+            <label for="budget-limit-${index}">
+                ${item.label}
+            </label>
+
+            <input
+                type="number"
+                id="budget-limit-${index}"
+                name="budget-limit-${index}"
+                value="${item.limit}"
+                min="0"
+                step="1"
+                required>
+        </div>
+    `).join('');
+
+    budgetModal.hidden = false;
+}
+
+// Menutup modal.
+function closeBudgetModal() {
+    budgetModal.hidden = true;
+}
+
+openBudgetButton.addEventListener('click', openBudgetModal);
+closeBudgetButton.addEventListener('click', closeBudgetModal);
+cancelBudgetButton.addEventListener('click', closeBudgetModal);
+budgetModalOverlay.addEventListener('click', closeBudgetModal);
+
+// Menyimpan perubahan anggaran ke data sementara JavaScript.
+budgetForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const newLimits = budgets.map((item, index) => {
+        const input = document.getElementById(`budget-limit-${index}`);
+
+        return {
+            ...item,
+            limit: Number(input.value)
+        };
+    });
+
+    const hasInvalidLimit = newLimits.some(item =>
+        !Number.isFinite(item.limit) || item.limit < 0
+    );
+
+    if (hasInvalidLimit) {
+        alert('Batas anggaran tidak boleh negatif.');
+        return;
+    }
+
+    budgets.splice(0, budgets.length, ...newLimits);
+
+    if (!saveBudgets()) {
+        return;
+    }
+
+    renderBudgets();
+    closeBudgetModal();
+});
+
+</script>
+
+
 </body>
 </html>

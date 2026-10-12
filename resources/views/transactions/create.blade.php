@@ -560,7 +560,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="payment">Metode Pembayaran</label>
+                                <label for="payment">Sumber Pembayaran</label>
                                 <select id="payment" name="payment" required>
                                     <option value="">Pilih metode</option>
                                     <option value="Cash">Tunai</option>
@@ -627,9 +627,8 @@
             expense: [
                 { value: 'Food & Drink', label: 'Makanan & Minuman' },
                 { value: 'Transport', label: 'Transportasi' },
-                { value: 'Shopping', label: 'Belanja' },
-                { value: 'Bills', label: 'Tagihan' },
-                { value: 'Other', label: 'Lainnya' }
+                { value: 'Education', label: 'Pendidikan' },
+                { value: 'Entertainment', label: 'Hiburan' } 
             ]
         };
 
@@ -679,52 +678,81 @@
 
         // Sementara, tampilkan konfirmasi karena backend belum terintegrasi.
         
-        transactionForm.addEventListener('submit', function(event) {
-            event.preventDefault();
+        
+const transactionStorageKey = 'fintrack_transactions';
 
-            const nameInput = document.getElementById('name');
-            const amountInput = document.getElementById('amount');
+transactionForm.addEventListener('submit', function(event) {
+    event.preventDefault();
 
-            // Nama transaksi tidak boleh kosong atau hanya spasi.
-            nameInput.value = nameInput.value.trim();
+    const nameInput = document.getElementById('name');
+    const amountInput = document.getElementById('amount');
 
-            if (!nameInput.value) {
-                nameInput.setCustomValidity(
-                    'Nama transaksi wajib diisi.'
-                );
-                nameInput.reportValidity();
-                nameInput.setCustomValidity('');
-                return;
-            }
+    nameInput.value = nameInput.value.trim();
 
-            // Nominal harus berupa angka lebih besar dari nol.
-            const amount = Number(amountInput.value.replace(/\./g, ''));
+    if (!nameInput.value) {
+        nameInput.setCustomValidity('Nama transaksi wajib diisi.');
+        nameInput.reportValidity();
+        nameInput.setCustomValidity('');
+        return;
+    }
 
-            if (
-                amountInput.value.trim() === '' ||
-                !Number.isFinite(amount) ||
-                amount <= 0 ||
-                !Number.isInteger(amount)
-            ) {
-                amountInput.setCustomValidity(
-                    'Nominal harus berupa bilangan bulat lebih besar dari Rp0.'
-                );
-                amountInput.reportValidity();
-                amountInput.setCustomValidity('');
-                return;
-            }
+    const amount = Number(amountInput.value.replace(/\./g, ''));
 
-            // Periksa validasi HTML untuk input lainnya.
-            if (!transactionForm.checkValidity()) {
-                transactionForm.reportValidity();
-                return;
-            }
+    if (
+        amountInput.value.trim() === '' ||
+        !Number.isFinite(amount) ||
+        amount <= 0 ||
+        !Number.isInteger(amount)
+    ) {
+        amountInput.setCustomValidity(
+            'Nominal harus berupa bilangan bulat lebih besar dari Rp0.'
+        );
+        amountInput.reportValidity();
+        amountInput.setCustomValidity('');
+        return;
+    }
 
-            alert(
-                'Form berhasil diisi! Penyimpanan ke database akan ditambahkan ' +
-                'setelah integrasi dengan backend.'
-            );
-        });
+    if (!transactionForm.checkValidity()) {
+        transactionForm.reportValidity();
+        return;
+    }
+
+    const transaction = {
+        id: Date.now(),
+        name: nameInput.value,
+        amount: amount,
+        type: typeInput.value,
+        category: categorySelect.value,
+        date: dateInput.value,
+        payment: document.getElementById('payment').value,
+        notes: document.getElementById('notes').value.trim()
+    };
+
+    try {
+        const savedTransactions = JSON.parse(
+            localStorage.getItem(transactionStorageKey) || '[]'
+        );
+
+        if (!Array.isArray(savedTransactions)) {
+            throw new Error('Format data transaksi tidak valid.');
+        }
+
+        savedTransactions.push(transaction);
+
+        localStorage.setItem(
+            transactionStorageKey,
+            JSON.stringify(savedTransactions)
+        );
+
+        alert('Transaksi berhasil disimpan!');
+
+        window.location.href = '/';
+    } catch (error) {
+        console.error('Gagal menyimpan transaksi:', error);
+        alert('Transaksi gagal disimpan. Silakan coba lagi.');
+    }
+});
+
 
     </script>
 </body>
