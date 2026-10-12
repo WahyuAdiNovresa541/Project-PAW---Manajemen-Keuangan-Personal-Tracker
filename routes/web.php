@@ -1,31 +1,23 @@
-
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ControllerTransactionController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\CategoryController;
 
-Route::redirect('/', '/login');
-
-Route::middleware('guest')->group(function () {
-    Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
-    Route::post('/login', [AuthController::class, 'authenticate']);
+Route::get('/', function () {
+    return redirect()->route('dashboard');
 });
 
-Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])
-        ->name('dashboard');
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'authenticate']);
 
-    Route::get('/transactions', [ControllerTransactionController::class, 'index'])
-        ->name('transactions.index');
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
 
-    Route::get('/transactions/create', [ControllerTransactionController::class, 'create'])
-        ->name('transactions.create');
+Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
+Route::get('/transactions/create', [TransactionController::class, 'create'])->name('transactions.create');
+Route::post('/transactions', [TransactionController::class, 'store'])->name('transactions.store');
 
-    Route::post('/transactions', [ControllerTransactionController::class, 'store'])
-        ->name('transactions.store');
-
-    Route::post('/logout', [AuthController::class, 'logout'])
-        ->name('logout');
-});
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
