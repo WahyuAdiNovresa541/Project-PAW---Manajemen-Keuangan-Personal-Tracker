@@ -71,23 +71,30 @@ class TransactionController extends Controller {
 
     public function edit($id) {
         $transaction = Transaction::findOrFail($id);
-        return view('transactions.index', compact('transaction'));
+        $categories = Category::all();
+        return view('transactions.edit', compact('transaction', 'categories'));
     }
 
     public function update(Request $request, $id) {
-        $transaction = Transaction::findOrFail($id);
+    $request->validate([
+        'description' => 'required|string|max:255',
+        'amount'      => 'required|numeric',
+        'type'        => 'required|in:income,expense',
+        'category_id' => 'required|exists:categories,id',
+        'date'        => 'required|date',
+    ]);
 
-        $validated = $request->validate([
-            'tanggal'   => 'required|date',
-            'jenis'     => 'required|in:Pemasukan,Pengeluaran',
-            'deskripsi' => 'required|string|max:100',
-            'kategori'  => 'required|string|max:50',
-            'jumlah'    => 'required|numeric|min:0',
-        ]);
+    $transaction = Transaction::findOrFail($id);
+    
+    $transaction->update([
+        'description' => $request->description,
+        'amount'      => $request->amount,
+        'type'        => $request->type,
+        'category_id' => $request->category_id,
+        'date'        => $request->date,
+    ]);
 
-        $transaction->update($validated);
-
-        return redirect()->route('transactions.index')->with('success', 'Transaksi berhasil diperbarui!');
+    return redirect()->route('transactions.index')->with('success', 'Transaksi berhasil diperbarui!');
     }
 
     public function destroy($id) {
