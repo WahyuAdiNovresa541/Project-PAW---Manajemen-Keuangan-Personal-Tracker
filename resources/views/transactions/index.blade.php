@@ -244,6 +244,38 @@
 
         .income-text { color: var(--income); font-weight: bold; }
         .expense-text { color: var(--expense); font-weight: bold; }
+
+        /* Style Tambahan untuk Tombol Aksi */
+        .btn-action-group {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .btn-edit {
+            background: #EAB308;
+            color: #FFFFFF;
+            padding: 6px 10px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .btn-edit:hover { background: #CA8A04; }
+
+        .btn-delete {
+            background: #EF4444;
+            color: #FFFFFF;
+            padding: 6px 10px;
+            border-radius: 6px;
+            border: none;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn-delete:hover { background: #DC2626; }
     </style>
 </head>
 
@@ -326,6 +358,7 @@
                             <th>DATE</th>
                             <th>TYPE</th>
                             <th>AMOUNT</th>
+                            <th>ACTION</th> <!-- Kolom Baru -->
                         </tr>
                     </thead>
                     <tbody>
@@ -343,10 +376,22 @@
                                 <td class="{{ $amountClass }}">
                                     {{ $sign }} Rp {{ number_format($item->amount, 0, ',', '.') }}
                                 </td>
+                                <td>
+                                    <!-- Tombol Action Baru -->
+                                    <div class="btn-action-group">
+                                        <a href="{{ route('transactions.edit', $item->id) }}" class="btn-edit">Edit</a>
+                                        
+                                        <form action="{{ route('transactions.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus transaksi ini?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn-delete">Hapus</button>
+                                        </form>
+                                    </div>
+                                </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" style="text-align: center; padding: 20px;">Belum ada transaksi.</td>
+                                <td colspan="6" style="text-align: center; padding: 20px;">Belum ada transaksi.</td>
                             </tr>
                         @endforelse
                     </tbody>
